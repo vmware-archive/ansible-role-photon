@@ -1,0 +1,6 @@
+---
+- name: Assure Docker running
+  service: name=docker state=started
+
+- name: Enable Docker at boot
+  service: name=docker enabled=yes
