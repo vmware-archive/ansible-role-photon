@@ -1,9 +1,5 @@
 ---
-- name: Assure Docker running
-  service: name=docker state=started
-
-- name: Enable Docker at boot
-  service: name=docker enabled=yes
-
-- name: install docker-py
-  pip: name=docker-py state=present
+# prevent confused person from running
+# photon role against non photon machine
+- include: Photon.yml
+  when: ansible_lsb.codename == 'Photon'

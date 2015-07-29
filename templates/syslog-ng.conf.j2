@@ -1,0 +1,41 @@
+# managed by ansible.... watch it, bub
+
+@version: 3.6
+@include "scl.conf"
+
+source s_local {
+	# use this once syslog-ng is new enough to parse systemd journal directly
+	# system();
+
+	# until then, set ForwardToSyslog=yes in /etc/systemd/journald.conf
+	unix-dgram("/run/systemd/journal/syslog");
+	internal();
+};
+
+source s_network {
+	udp();
+};
+
+{% if local_syslog_file %}
+destination d_local {
+	file("{{ local_syslog_file }}");
+};
+{% endif %}
+
+{% if remote_syslog_server and remote_syslog_port %}
+destination remote_server { udp("{{ remote_syslog_server }}" port({{ remote_syslog_port }})); };
+{% endif %}
+
+log {
+	source(s_local);
+
+	# uncomment this line to open port 514 to receive messages
+	#source(s_network);
+{% if local_syslog_file %}
+	destination(d_local);
+{% endif %}
+
+{% if remote_syslog_server and remote_syslog_port %}
+	destination(remote_server);
+{% endif %}
+};

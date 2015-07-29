@@ -1,0 +1,6 @@
+# set these 2 to log to a remote syslog server
+remote_syslog_server: "{{ logstash_server }}"
+remote_syslog_port: "{{ logstash_port }}"
+
+# set path to log locally, if unset, won't log to a file
+local_syslog_file: /var/log/messages

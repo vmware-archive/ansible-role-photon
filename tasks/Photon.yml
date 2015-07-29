@@ -1,0 +1,35 @@
+---
+- name: Assure Docker running and started at boot
+  service: name=docker state=started enabled=yes
+
+# requires that pip role already be run
+- name: install docker-py
+  pip: name=docker-py state=present
+
+# -------- send systemd journal to remote syslog
+- name: test for syslog-ng installed
+  command: rpm -q syslog-ng
+  register: syslog_installed
+  ignore_errors: yes
+
+- name: install syslog-ng on host
+  command: tdnf install -y syslog-ng
+  when: syslog_installed.rc == 1
+
+- name: configure syslog-ng.conf
+  template:
+    src: syslog-ng.conf.j2
+    dest: /etc/syslog-ng/syslog-ng.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart syslog-ng
+
+- name: tell systemd to forward journal to syslog
+  lineinfile:
+    dest: /etc/systemd/journald.conf
+    regexp: "^ForwardToSyslog=.*"
+    line: "ForwardToSyslog=yes"
+    state: present
+  notify: restart systemd
+# -----------------------------------------------
