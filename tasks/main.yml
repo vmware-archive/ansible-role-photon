@@ -4,3 +4,6 @@
 
 - name: Enable Docker at boot
   service: name=docker enabled=yes
+
+- name: install docker-py
+  pip: name=docker-py state=present
