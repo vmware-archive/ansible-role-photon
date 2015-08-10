@@ -33,3 +33,9 @@
     state: present
   notify: restart systemd
 # -----------------------------------------------
+
+# add all hosts in inventory to hosts file
+- name: "put inventory to /etc/hosts"
+  lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[ item ].ansible_default_ipv4.address }} {{item}}" state=present
+  when: hostvars[ item ].ansible_default_ipv4.address is defined
+  with_items: groups['all']
