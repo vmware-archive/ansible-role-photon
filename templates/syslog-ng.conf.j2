@@ -24,6 +24,7 @@ destination d_local {
 
 {% if remote_syslog_server and remote_syslog_port %}
 destination remote_server { udp("{{ remote_syslog_server }}" port({{ remote_syslog_port }})); };
+destination logstash { syslog("{{ remote_syslog_server }}" transport("tcp") port({{ remote_syslog_port }}) ); };
 {% endif %}
 
 log {
@@ -36,6 +37,6 @@ log {
 {% endif %}
 
 {% if remote_syslog_server and remote_syslog_port %}
-	destination(remote_server);
+	destination(logstash);
 {% endif %}
 };
