@@ -4,3 +4,6 @@ remote_syslog_port: "{{ logstash_port }}"
 
 # set path to log locally, if unset, won't log to a file
 local_syslog_file: /var/log/messages
+
+photon_yum_repo: https://dl.bintray.com/vmware/photon_release_1.0_TP2_x86_64
+photon_yum_repo_enabled: 1

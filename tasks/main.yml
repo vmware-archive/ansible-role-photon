@@ -3,3 +3,6 @@
 # photon role against non photon machine
 - include: Photon.yml
   when: ansible_lsb.codename == 'Photon'
+
+- include: yum-repo.yml
+  when: ansible_lsb.codename == 'Photon'

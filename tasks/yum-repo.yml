@@ -1,0 +1,10 @@
+---
+
+- name: configure yum repo
+  template:
+    src: photon-ansible.repo.j2
+    dest: /etc/yum.repos.d/photon-ansible.repo
+    owner: root
+    group: root
+    mode: 0644
+  notify: yum makecache

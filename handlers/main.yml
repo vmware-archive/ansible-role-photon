@@ -4,3 +4,6 @@
 
 - name: restart systemd
   action: service name=systemd-journald state=restarted enabled=yes
+
+- name: yum makecache
+  shell: yum makecache

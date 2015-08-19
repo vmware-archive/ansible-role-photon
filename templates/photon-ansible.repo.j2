@@ -1,0 +1,7 @@
+[photon-ansible]
+name=VMware Photon Linux, repo added by ansible
+baseurl={{ photon_yum_repo }}
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY
+gpgcheck=0
+enabled={{ photon_yum_repo_enabled }}
+skip_if_unavailable=True
