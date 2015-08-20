@@ -1,8 +1,9 @@
 ---
 # prevent confused person from running
 # photon role against non photon machine
+- include: yum-repo.yml
+  when: ansible_lsb.codename == 'Photon'
+
 - include: Photon.yml
   when: ansible_lsb.codename == 'Photon'
 
-- include: yum-repo.yml
-  when: ansible_lsb.codename == 'Photon'

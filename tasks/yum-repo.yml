@@ -1,5 +1,13 @@
 ---
 
+- name: disable photon-iso.repo
+  lineinfile:
+    dest: /etc/yum.repos.d/photon-iso.repo
+    regexp: "enabled=.*"
+    line: "enabled=0"
+    state: present
+  notify: yum makecache
+
 - name: configure yum repo
   template:
     src: photon-ansible.repo.j2
