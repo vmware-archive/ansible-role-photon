@@ -32,7 +32,7 @@ None yet.
 
 ```
 ---
-- hosts: supervio
+- hosts: photons
   sudo: no
   remote_user: root
   roles:
