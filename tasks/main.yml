@@ -14,11 +14,46 @@
 #  limitations under the License.
 #
 ---
-# prevent confused person from running
-# photon role against non photon machine
-- include: yum-repo.yml
-  when: ansible_lsb.codename == 'Photon'
 
-- include: Photon.yml
-  when: ansible_lsb.codename == 'Photon'
+- name: test for yum installed
+  command: rpm -q yum
+  register: yum_installed
+  ignore_errors: yes
 
+- name: assure yum installed
+  shell: tdnf install yum -y
+  when: yum_installed.rc != 0
+
+- name: Assure Docker running and started at boot
+  service: name=docker state=started enabled=yes
+
+# -------- send systemd journal to remote syslog
+- name: test for syslog-ng installed
+  command: rpm -q syslog-ng
+  register: syslog_installed
+  ignore_errors: yes
+  when: logstash_server is defined
+
+- name: install syslog-ng on host
+  command: yum install -y syslog-ng
+  when: syslog_installed.rc == 1
+  when: logstash_server is defined
+
+- name: configure syslog-ng.conf
+  template:
+    src: syslog-ng.conf.j2
+    dest: /etc/syslog-ng/syslog-ng.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart syslog-ng
+  when: logstash_server is defined
+
+- name: tell systemd to forward journal to syslog
+  lineinfile:
+    dest: /etc/systemd/journald.conf
+    regexp: "^ForwardToSyslog=.*"
+    line: "ForwardToSyslog=yes"
+    state: present
+  notify: restart systemd
+  when: logstash_server is defined
