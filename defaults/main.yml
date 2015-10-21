@@ -13,6 +13,11 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
+
+# docker group id (gets created) for socket access and similar
+docker_gid: 995
+
+#
 # set these 2 to log to a remote syslog server
 remote_syslog_server: "{{ logstash_server }}"
 remote_syslog_port: "{{ logstash_port }}"

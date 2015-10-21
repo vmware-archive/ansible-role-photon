@@ -24,7 +24,17 @@
   shell: tdnf install yum -y
   when: yum_installed.rc != 0
 
-- name: Assure Docker running and started at boot
+- name: assure docker group exists
+  group: name=docker gid={{ docker_gid }} state=present
+
+- name: add docker Group spec in Docker unit file
+  ini_file: dest=/usr/lib/systemd/system/docker.service
+            section=Service
+            option=Group
+            value=docker
+            backup=yes
+
+- name: assure Docker running and started at boot
   service: name=docker state=started enabled=yes
 
 # -------- send systemd journal to remote syslog
