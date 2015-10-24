@@ -17,6 +17,9 @@
 # docker group id (gets created) for socket access and similar
 docker_gid: 995
 
+# docker insecure registies
+docker_insecure_registries: []
+
 #
 # set these 2 to log to a remote syslog server
 remote_syslog_server: "{{ logstash_server }}"

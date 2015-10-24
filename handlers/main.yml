@@ -14,11 +14,17 @@
 #  limitations under the License.
 #
 ---
+- name: reload unit files
+  command: systemctl daemon-reload
+
 - name: restart syslog-ng
   action: service name=syslog-ng state=restarted enabled=yes
 
-- name: restart systemd
+- name: restart journald
   action: service name=systemd-journald state=restarted enabled=yes
+
+- name: restart docker
+  action: service name=docker state=restarted enabled=yes
 
 - name: yum makecache
   shell: yum makecache

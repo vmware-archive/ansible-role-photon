@@ -15,12 +15,12 @@
 #
 ---
 
-# -------- package management
-- include: yum.yml
-
-# -------- docker setup
-- include: docker.yml
-
-# -------- logstash support
-- include: logstash.yml
-  when: logstash_server is defined
+- name: add insecure registries to docker daemon
+  template:
+    src=docker.service.j2
+    dest=/lib/systemd/system/docker.service
+    owner=root
+    group=root
+  notify:
+    - reload unit files
+    - restart docker

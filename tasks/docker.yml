@@ -14,13 +14,21 @@
 #  limitations under the License.
 #
 ---
+- include: registry.yml
+  when: docker_insecure_registries|length > 0
 
-# -------- package management
-- include: yum.yml
+- name: assure docker group exists
+  group: name=docker gid={{ docker_gid }} state=present
 
-# -------- docker setup
-- include: docker.yml
+- name: assure Docker running and started at boot
+  service: name=docker state=started enabled=yes
 
-# -------- logstash support
-- include: logstash.yml
-  when: logstash_server is defined
+- name: add docker Group spec in Docker unit file
+  ini_file: dest=/usr/lib/systemd/system/docker.service
+            section=Service
+            option=Group
+            value=docker
+            backup=yes
+  notify:
+    - reload unit files
+    - restart docker

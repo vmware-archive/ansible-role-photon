@@ -14,13 +14,11 @@
 #  limitations under the License.
 #
 ---
+- name: test for yum installed
+  command: rpm -q yum
+  register: yum_installed
+  ignore_errors: yes
 
-# -------- package management
-- include: yum.yml
-
-# -------- docker setup
-- include: docker.yml
-
-# -------- logstash support
-- include: logstash.yml
-  when: logstash_server is defined
+- name: assure yum installed
+  shell: tdnf install yum -y
+  when: yum_installed.rc != 0

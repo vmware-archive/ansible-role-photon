@@ -12,11 +12,24 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-#} 
-[photon-ansible]
-name=VMware Photon Linux, repo added by ansible
-baseurl={{ photon_yum_repo }}
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY
-gpgcheck=0
-enabled={{ photon_yum_repo_enabled }}
-skip_if_unavailable=True
+#}
+[Unit]
+Description=Docker Daemon
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/bin/docker -d -s overlay -H unix://var/run/docker.sock -H 0.0.0.0:2375 {% for r in docker_insecure_registries %} --insecure-registry {{ r.host }}:{{ r.port }}{% endfor %}
+
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+MountFlags=slave
+LimitNOFILE=1048576
+LimitNPROC=1048576
+LimitCORE=infinity
+Group=docker
+
+[Install]
+WantedBy=multi-user.target
+
