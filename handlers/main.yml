@@ -16,15 +16,19 @@
 ---
 - name: reload unit files
   command: systemctl daemon-reload
+  when: not photon_testing_in_docker
 
 - name: restart syslog-ng
   action: service name=syslog-ng state=restarted enabled=yes
+  when: not photon_testing_in_docker
 
 - name: restart journald
   action: service name=systemd-journald state=restarted enabled=yes
+  when: not photon_testing_in_docker
 
 - name: restart docker
   action: service name=docker state=restarted enabled=yes
+  when: not photon_testing_in_docker
 
 - name: yum makecache
   shell: yum makecache

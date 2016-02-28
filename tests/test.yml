@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  remote_user: root
+  sudo: yes
+  vars:
+    photon_testing_in_docker: true
+  roles:
+    - photon
+
+- hosts: localhost
+  remote_user: root
+  sudo: yes
+  vars:
+    logstash_server: localhost
+    logstash_port: 32768
+    photon_testing_in_docker: true
+  roles:
+    - photon

@@ -19,6 +19,7 @@
   command: rpm -q syslog-ng
   register: syslog_installed
   ignore_errors: yes
+  changed_when: false
 
 - name: install syslog-ng on host
   command: yum install -y syslog-ng

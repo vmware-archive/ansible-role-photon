@@ -15,12 +15,18 @@
 #
 ---
 
+# only run on photon
+- debug: msg="this role only works on photon platform"
+  when: ansible_lsb.codename != 'Photon'
+
 # -------- package management
 - include: yum.yml
+  when: ansible_lsb.codename == 'Photon'
 
 # -------- docker setup
 - include: docker.yml
+  when: ansible_lsb.codename == 'Photon' and photon_with_docker and not photon_testing_in_docker
 
 # -------- logstash support
 - include: logstash.yml
-  when: logstash_server is defined
+  when: ansible_lsb.codename == 'Photon' and logstash_server is defined

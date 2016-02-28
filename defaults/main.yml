@@ -14,6 +14,11 @@
 #  limitations under the License.
 #
 
+# prevent doing things that will break under docker.
+# specifically added so that travis-ci can test inside docker
+photon_testing_in_docker: false
+
+photon_with_docker: true
 # docker group id (gets created) for socket access and similar
 docker_gid: 995
 
@@ -28,5 +33,9 @@ remote_syslog_port: "{{ logstash_port }}"
 # set path to log locally, if unset, won't log to a file
 local_syslog_file: /var/log/messages
 
-photon_yum_repo: https://dl.bintray.com/vmware/photon_release_1.0_TP2_x86_64
-photon_yum_repo_enabled: 1
+photon_yum_repo: https://vmware.bintray.com/photon_pre_release_1.0_x86_64
+photon_yum_repo_enabled: yes
+
+photon_packages:
+  - tar
+  - gzip
