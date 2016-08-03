@@ -39,3 +39,8 @@ photon_yum_repo_enabled: yes
 photon_packages:
   - tar
   - gzip
+  - nano
+  - less
+  - tcpdump
+  - netcat
+  - ethtool

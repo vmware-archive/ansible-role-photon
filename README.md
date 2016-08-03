@@ -7,7 +7,7 @@ to enable Docker at boot since that is not the case by default with Photon.
 
 ## Requirements
 
-None.
+One instance of Photon OS running
 
 ## Role Variables
 
@@ -47,7 +47,7 @@ Set these to utilize specifig Photon OS binary package repos.
 ```
 
 # License and Copyright
- 
+
 Copyright 2015 VMware, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");

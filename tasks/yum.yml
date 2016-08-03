@@ -16,24 +16,24 @@
 ---
 
 # in ansible 2.1 this will work
-#- name: Add photon repository
-#  yum_repository:
-#    name: photon repo
-#    description: photon repo
-#    baseurl: "{{ photon_yum_repo }}"
-#    enabled: "{{ photon_yum_repo_enabled }}"
+- name: Add photon repository
+  yum_repository:
+   name: photon repo
+   description: photon repo
+   baseurl: "{{ photon_yum_repo }}"
+   enabled: "{{ photon_yum_repo_enabled }}"
 # until then, do it the old fashioned way
-- name: add photon repository
-  copy:
-    content: |
-      [new_photon_repo]
-      name=newer photon build repo
-      baseurl={{ photon_yum_repo }}
-      gpgkey=file:///etc/pki/rpm-gpg/VMWARE-RPM-GPG-KEY
-      gpgcheck=1
-      enabled=1
-      skip_if_unavailable=True
-    dest: /etc/yum.repos.d/new_photon.repo
+# - name: add photon repository
+#   copy:
+#     content: |
+#       [new_photon_repo]
+#       name=newer photon build repo
+#       baseurl={{ photon_yum_repo }}
+#       gpgkey=file:///etc/pki/rpm-gpg/VMWARE-RPM-GPG-KEY
+#       gpgcheck=1
+#       enabled=1
+#       skip_if_unavailable=True
+#     dest: /etc/yum.repos.d/new_photon.repo
 
 
 - name: ensure yum is installed
@@ -41,7 +41,7 @@
 
 - name: add additional packages
   yum: name={{ item }} state=latest
-  with_items: photon_packages
+  with_items: "{{ photon_packages }}"
 
 - name: update systemd to fix network daemon crashes
   yum: name=systemd state=latest

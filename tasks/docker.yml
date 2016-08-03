@@ -32,3 +32,6 @@
   notify:
     - reload unit files
     - restart docker
+
+- name: Install docker-py
+  pip: name=docker-py state=latest
