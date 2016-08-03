@@ -22,22 +22,12 @@
    description: photon repo
    baseurl: "{{ photon_yum_repo }}"
    enabled: "{{ photon_yum_repo_enabled }}"
-# until then, do it the old fashioned way
-# - name: add photon repository
-#   copy:
-#     content: |
-#       [new_photon_repo]
-#       name=newer photon build repo
-#       baseurl={{ photon_yum_repo }}
-#       gpgkey=file:///etc/pki/rpm-gpg/VMWARE-RPM-GPG-KEY
-#       gpgcheck=1
-#       enabled=1
-#       skip_if_unavailable=True
-#     dest: /etc/yum.repos.d/new_photon.repo
-
 
 - name: ensure yum is installed
   command: bash -c "rpm -q yum || tdnf install -y yum" creates=/usr/bin/yum
+
+# - name: Update default Photon packages to latest
+#   command: tdnf -y distro-sync
 
 - name: add additional packages
   yum: name={{ item }} state=latest
