@@ -1,15 +1,13 @@
 FROM photon:latest
 
-
-
-RUN curl -L https://bintray.com/vmware/photon_release_1.0_x86_64/rpm -o /etc/yum.repos.d/bintray-vmware-photon_release_1.0_x86_64.repo
-
 RUN tdnf install -y python2 ;\
  tdnf install -y python-xml ;\
  tdnf install -y python2-libs ;\
  tdnf install -y python2-tools ;\
  tdnf install -y python2-devel ;\
  tdnf install -y openssh ;\
+ tdnf install -y openssl ;\
+ tdnf install -y openssl-devel ;\
  tdnf install -y sed ;\
  tdnf install -y gawk ;\
  tdnf install -y gcc ;\

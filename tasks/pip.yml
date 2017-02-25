@@ -1,5 +1,5 @@
 #
-#  Copyright 2015 VMware, Inc.
+#  Copyright 2015-2017 VMware, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,20 +14,10 @@
 #  limitations under the License.
 #
 ---
+- name: Assure pip installed via easy_install on Photon.
+  command: easy_install pip
+  args:
+    creates: /usr/bin/pip
 
-# only run on photon
-- assert:
-    that:
-      - ansible_lsb.codename == 'Photon'
-
-# -------- package management
-- include: yum.yml
-- include: pip.yml
-
-# -------- docker setup
-- include: docker.yml
-  when: photon_with_docker and not photon_testing_in_docker
-
-# -------- logstash support
-- include: logstash.yml
-  when: logstash_server is defined
+- name: Upgrade Virtualenv
+  pip: name=virtualenv state=latest
