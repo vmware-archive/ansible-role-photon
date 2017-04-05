@@ -1,0 +1,5 @@
+---
+- hosts: all
+
+  roles:
+    - { role: photon, photon_testing_in_docker: true}
