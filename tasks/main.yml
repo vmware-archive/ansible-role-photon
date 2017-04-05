@@ -15,18 +15,23 @@
 #
 ---
 
-# only run on photon
-- debug: msg="this role only works on photon platform"
-  when: ansible_lsb.codename != 'Photon'
+- name: Skipping non photons
+  debug:
+    msg: "Skipping non photon hosts"
+  when: ansible_distribution != 'VMware Photon'
+
 
 # -------- package management
 - include: yum.yml
-  when: ansible_lsb.codename == 'Photon'
+  when: ansible_distribution == 'VMware Photon'
+- include: pip.yml
+  when: ansible_distribution == 'VMware Photon'
 
 # -------- docker setup
 - include: docker.yml
-  when: ansible_lsb.codename == 'Photon' and photon_with_docker and not photon_testing_in_docker
+  when: ansible_distribution == 'VMware Photon' and photon_with_docker and not photon_testing_in_docker
+
 
 # -------- logstash support
 - include: logstash.yml
-  when: ansible_lsb.codename == 'Photon' and logstash_server is defined
+  when: ansible_distribution == 'VMware Photon' and logstash_server is defined

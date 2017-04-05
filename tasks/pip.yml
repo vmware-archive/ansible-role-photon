@@ -1,5 +1,5 @@
 #
-#  Copyright 2015 VMware, Inc.
+#  Copyright 2015-2017 VMware, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,18 +14,10 @@
 #  limitations under the License.
 #
 ---
-- name: reload unit files
-  command: systemctl daemon-reload
-  when: not photon_testing_in_docker
+- name: Assure pip installed via easy_install on Photon.
+  command: easy_install pip
+  args:
+    creates: /usr/bin/pip
 
-- name: restart syslog-ng
-  action: service name=syslog-ng state=restarted enabled=yes
-  when: not photon_testing_in_docker
-
-- name: restart journald
-  action: service name=systemd-journald state=restarted enabled=yes
-  when: not photon_testing_in_docker
-
-- name: restart docker
-  action: service name=docker state=restarted enabled=yes
-  when: not photon_testing_in_docker
+- name: Upgrade Virtualenv
+  pip: name=virtualenv state=present
