@@ -1,7 +1,15 @@
 ---
-ansible:
-  playbook: playbook.yml
+dependency:
+  name: galaxy
+#  requirements_file: requirements.yml
+#  options:
+#      ignore-certs: True
+#      ignore-errors: True
 
+ansible:
+  playbook: "${MOLECULE_PLAYBOOK}"
+  raw_env_vars:
+    ANSIBLE_ROLES_PATH: .molecule/roles/:.molecule/../roles/:../:../../:../../../
 driver:
   name: docker
 docker:
@@ -16,3 +24,5 @@ docker:
       privileged: true
       volume_mounts:
         - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+verifier:
+  name: testinfra

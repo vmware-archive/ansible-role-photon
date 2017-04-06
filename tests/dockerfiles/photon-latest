@@ -3,6 +3,7 @@ FROM photon:latest
 RUN	tdnf makecache && \
 	tdnf install -y \
 	    binutils \
+	    gzip \
 	    libxml2 \
 	    procps-ng \
 	    python-xml \

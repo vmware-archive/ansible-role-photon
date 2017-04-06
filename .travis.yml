@@ -9,7 +9,7 @@ install:
   - pip install molecule
   # - pip install required driver (e.g. docker, python-vagrant, shade)
   - pip install docker
-  - mkdir roles
-  - ln -s ../ roles/photon
+  - mkdir tests/roles
+  - ln -s ../ tests/roles/photon
 script:
-  - molecule test
+  - MOLECULE_PLAYBOOK=tests/travis-playbook.yml molecule test
