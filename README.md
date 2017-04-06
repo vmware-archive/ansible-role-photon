@@ -1,9 +1,6 @@
 # ansible-role-photon
 
-Ansible playbook to automate basic setup of Photon (OS) instances.
-
-This role is quite small at this point. The majority of its purpose is
-to enable Docker at boot since that is not the case by default with Photon.
+Ansible playbook to automate basic setup of Photon OS instances.
 
 ## Requirements
 
@@ -31,19 +28,21 @@ a role that includes those by default, you'd need not set them in your play.
 Set path to log locally, if unset, the resulting setup won't log to a file
 
     photon_yum_repo: https://dl.bintray.com/vmware/photon_release_1.0_TP2_x86_64
-    photon_yum_repo_enabled: 1
+    photon_yum_repo_enabled: yes|no
 
 Set these to utilize specifig Photon OS binary package repos.
 
 ## Example playbook
 
 ```
+
 ---
 - hosts: photons
   sudo: no
   remote_user: root
   roles:
     - photon
+
 ```
 
 # License and Copyright

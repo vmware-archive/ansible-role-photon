@@ -1,0 +1,38 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+galaxy_info:
+  author: Tom Scanlan
+  description: Install and manage Photon OS
+  company: VMware Inc.
+  license: Apache 2.0
+  min_ansible_version: 2.0
+
+  platforms:
+
+  - name: Photon Linux
+    versions:
+    - 1.0
+
+  - name: Fedora
+    versions:
+    - 24
+    - 25
+  - name: CentOS
+    versions:
+    - 7
+  - name: Ubuntu
+    versions:
+    - all
+  - name: opensuse
+    versions:
+    - 42.2
+
+  galaxy_tags:
+  - CNA
+  - OS
+  - VMware
+
+dependencies:
+#  - role: govc
+#  - role: docker

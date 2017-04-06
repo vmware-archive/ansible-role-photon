@@ -37,11 +37,8 @@ photon_yum_repo: https://vmware.bintray.com/photon_pre_release_1.0_x86_64
 photon_yum_repo_enabled: yes
 
 photon_packages:
-  - tar
-  - gzip
-  - nano
-  - less
-  - tcpdump
-  - netcat
-  - ethtool
   - git
+  - gzip
+  - less
+  - python-setuptools
+  - tar

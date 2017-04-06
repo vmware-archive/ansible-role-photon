@@ -15,15 +15,16 @@
 #
 ---
 # -------- send systemd journal to remote syslog
-- name: test for syslog-ng installed
-  command: rpm -q syslog-ng
-  register: syslog_installed
-  ignore_errors: yes
-  changed_when: false
+#- name: test for syslog-ng installed
+#  command: rpm -q syslog-ng
+#  register: syslog_installed
+#  ignore_errors: yes
+#  changed_when: false
 
 - name: install syslog-ng on host
-  command: yum install -y syslog-ng
-  when: syslog_installed.rc == 1
+  yum:
+    name: syslog-ng
+    state: present
 
 - name: configure syslog-ng.conf
   template:

@@ -34,4 +34,4 @@
     - restart docker
 
 - name: Install docker-py
-  pip: name=docker-py state=latest
+  pip: name=docker-py state=present

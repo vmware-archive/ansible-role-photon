@@ -30,8 +30,8 @@
 #   command: tdnf -y distro-sync
 
 - name: add additional packages
-  yum: name={{ item }} state=latest
+  yum: name={{ item }} state=present
   with_items: "{{ photon_packages }}"
 
 - name: update systemd to fix network daemon crashes
-  yum: name=systemd state=latest
+  yum: name=systemd state=present

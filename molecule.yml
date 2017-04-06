@@ -1,0 +1,28 @@
+---
+dependency:
+  name: galaxy
+#  requirements_file: requirements.yml
+#  options:
+#      ignore-certs: True
+#      ignore-errors: True
+
+ansible:
+  playbook: "${MOLECULE_PLAYBOOK}"
+  raw_env_vars:
+    ANSIBLE_ROLES_PATH: .molecule/roles/:.molecule/../roles/:../:../../:../../../
+driver:
+  name: docker
+docker:
+  containers:
+    - name: ubuntu01
+      image: ubuntu
+      image_version: latest
+    - name: photon01
+      image: photon
+      image_version: latest
+      dockerfile: tests/dockerfiles/photon-latest
+      privileged: true
+      volume_mounts:
+        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+verifier:
+  name: testinfra
