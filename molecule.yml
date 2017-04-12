@@ -7,7 +7,7 @@ dependency:
 #      ignore-errors: True
 
 ansible:
-  playbook: "${MOLECULE_PLAYBOOK}"
+  playbook: tests/repo-playbook.yml
   raw_env_vars:
     ANSIBLE_ROLES_PATH: .molecule/roles/:.molecule/../roles/:../:../../:../../../
 driver:
