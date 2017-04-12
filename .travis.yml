@@ -1,3 +1,5 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+---
 sudo: required
 language: python
 services:
@@ -7,9 +9,8 @@ before_install:
   - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
 install:
   - pip install molecule
-  # - pip install required driver (e.g. docker, python-vagrant, shade)
   - pip install docker
-  - mkdir tests/roles
-  - ln -s ../ tests/roles/photon
 script:
-  - MOLECULE_PLAYBOOK=tests/travis-playbook.yml molecule test
+  - >
+    sed -i.orig 's;  playbook.*;  playbook: tests/travis-playbook.yml;' molecule.yml
+  - molecule test
