@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright © 2017 VMware, Inc. All Rights Reserved.
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MIT OR GPL-3.0-only
 
 set -e
 
